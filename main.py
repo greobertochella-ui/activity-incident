@@ -1,13 +1,10 @@
 import uvicorn
-import app  # importa app.py
-
-def main():
-    uvicorn.run(
-        app.asgi,
-        host="0.0.0.0",
-        port=8000,
-        reload=True
-    )
+import app
 
 if __name__ == "__main__":
-    main()
+    uvicorn.run(
+        app.asgi,          # 🔴 ESTA LÍNEA ES CLAVE
+        host="0.0.0.0",
+        port=8080,
+        reload=True
+    )
