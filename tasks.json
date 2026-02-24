@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "content": "Añadir tabla comentarios en DB + endpoints API /incidencias/{id}/comentarios",
+    "status": "completed"
+  },
+  {
+    "id": "2",
+    "content": "Extender /api/stats con datos de gráficos: por estado, por mes, actividades por comercial",
+    "status": "completed"
+  },
+  {
+    "id": "3",
+    "content": "Agregar vista Calendario (FullCalendar) + vista Reportes en HTML",
+    "status": "completed"
+  },
+  {
+    "id": "4",
+    "content": "Integrar Chart.js en dashboard: donut estados, barra prioridades, línea mensual",
+    "status": "in_progress"
+  },
+  {
+    "id": "5",
+    "content": "Agregar exportación CSV y endpoints /api/export",
+    "status": "completed"
+  },
+  {
+    "id": "6",
+    "content": "Ampliar app.js: calendario, gráficos, comentarios, exportar, mejoras UX",
+    "status": "in_progress"
+  }
+]
