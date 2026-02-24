@@ -1,0 +1,660 @@
+/* ═══════════════════════════════════════════════════════
+   VISUAL IMPROVEMENTS - 2026-02-22
+   Skeleton loading, micro-animations, icons, theme toggle
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── SKELETON LOADING STATES ─── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg3) 25%,
+    var(--bg4) 50%,
+    var(--bg3) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius);
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-text {
+  height: 12px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.skeleton-text.large {
+  height: 20px;
+  width: 60%;
+}
+
+.skeleton-card {
+  height: 140px;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.skeleton-table-row {
+  height: 44px;
+  margin-bottom: 1px;
+}
+
+.skeleton-kpi {
+  height: 80px;
+  border-radius: var(--radius-lg);
+}
+
+/* ─── MICRO-ANIMATIONS ─── */
+
+/* Button press effect */
+.btn-primary:active,
+.btn-ghost:active,
+.btn-danger:active {
+  transform: scale(0.97);
+}
+
+/* Button ripple effect */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:active::after {
+  width: 300px;
+  height: 300px;
+  transition: width 0s, height 0s;
+}
+
+/* Card enhanced hover */
+.card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 40px rgba(79, 124, 255, 0.15);
+}
+
+/* KPI cards hover lift */
+.kpi-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.kpi-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Nav item smooth highlight */
+.nav-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: var(--accent-glow);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--radius);
+}
+
+.nav-item:hover::before {
+  width: 100%;
+}
+
+.nav-item > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Table row smooth highlight */
+tbody tr {
+  transition: all 0.2s ease;
+}
+
+tbody tr:hover {
+  transform: translateX(2px);
+}
+
+/* ─── PROGRESS BARS WITH GRADIENTS & ANIMATION ─── */
+.prio-bar-fill {
+  position: relative;
+  overflow: hidden;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Animated shine effect */
+.prio-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  20% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* Gradient backgrounds for priority bars */
+.prio-critica .prio-bar-fill {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+.prio-alta .prio-bar-fill {
+  background: linear-gradient(90deg, #f59e0b, #f97316);
+}
+
+.prio-media .prio-bar-fill {
+  background: linear-gradient(90deg, #4f7cff, #3b82f6);
+}
+
+.prio-baja .prio-bar-fill {
+  background: linear-gradient(90deg, #62637a, #52536a);
+}
+
+/* ─── ANIMATED ICONS ─── */
+
+/* Icon rotate on hover */
+.btn-icon:hover svg {
+  transform: rotate(15deg);
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Plus icon rotates 90° */
+.btn-primary:hover svg.icon-plus {
+  transform: rotate(90deg);
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Trash wiggle animation */
+@keyframes trash-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+}
+
+.btn-danger:hover svg {
+  animation: trash-wiggle 0.4s ease;
+}
+
+/* Search icon pulse when focused */
+.search-global input:focus ~ svg,
+.search-global:focus-within svg {
+  animation: icon-pulse 2s infinite;
+}
+
+@keyframes icon-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+/* Check animation for completed tasks */
+@keyframes draw-check {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.icon-check {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+
+.badge-completada .icon-check,
+.badge-resuelta .icon-check {
+  animation: draw-check 0.6s ease-out forwards;
+}
+
+/* ─── EMPTY STATES ─── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  animation: fade-in-up 0.5s ease-out;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.empty-state-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  opacity: 0.3;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.empty-state-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--text3);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.empty-state-title {
+  font-family: var(--cond);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text2);
+  margin-bottom: 8px;
+}
+
+.empty-state-description {
+  font-size: 14px;
+  color: var(--text3);
+  max-width: 320px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+/* ─── GLASSMORPHISM ─── */
+.modal {
+  background: rgba(20, 21, 25, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="light"] .modal {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="light"] .modal-overlay {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* ─── TOAST IMPROVEMENTS ─── */
+.toast {
+  position: relative;
+  padding-right: 48px;
+  animation: toast-slide-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes toast-slide-in {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.toast.removing {
+  animation: toast-slide-out 0.3s ease-out forwards;
+}
+
+@keyframes toast-slide-out {
+  to {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+}
+
+.toast-close {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text3);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius);
+  transition: all 0.2s;
+}
+
+.toast-close:hover {
+  background: var(--bg3);
+  color: var(--text);
+  transform: translateY(-50%) rotate(90deg);
+}
+
+/* ─── THEME TOGGLE BUTTON ─── */
+.theme-toggle {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  padding: 3px;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.theme-toggle-slider {
+  width: 22px;
+  height: 22px;
+  background: var(--text);
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left: 0;
+}
+
+.theme-toggle-slider svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--bg);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+[data-theme="light"] .theme-toggle-slider {
+  left: 30px;
+  background: var(--accent);
+}
+
+[data-theme="light"] .theme-toggle-slider svg {
+  stroke: #fff;
+}
+
+/* Theme transition */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar,
+.topbar,
+.panel,
+.card,
+.table-wrap,
+.modal,
+input,
+select,
+textarea,
+.btn-ghost {
+  transition: 
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* ─── NOTIFICATION BADGES PULSE ─── */
+.nav-badge {
+  animation: gentle-pulse 2s infinite;
+}
+
+@keyframes gentle-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+  }
+}
+
+.nav-badge.new-notification {
+  animation: notification-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes notification-pop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ─── COUNT-UP ANIMATION FOR NUMBERS ─── */
+@keyframes count-up {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.kpi-num.animating {
+  animation: count-up 0.6s ease-out;
+}
+
+/* ─── HOVER GRADIENTS FOR BUTTONS ─── */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+/* ─── ENHANCED FOCUS STATES ─── */
+input:focus,
+select:focus,
+textarea:focus,
+.btn-primary:focus,
+.btn-ghost:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* ─── SMOOTH SCROLL ─── */
+html {
+  scroll-behavior: smooth;
+}
+
+.content,
+.modal-body {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar with theme support */
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* ─── LOADING SPINNER ─── */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-spinner p {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text3);
+  font-family: var(--mono);
+}
+
+/* ─── ENHANCED BADGES ─── */
+.badge {
+  transition: all 0.2s;
+}
+
+.badge:hover {
+  transform: scale(1.05);
+}
+
+/* ─── CARD GRADIENT BORDER ON HOVER ─── */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  position: relative;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  padding: 1px;
+  background: linear-gradient(135deg, transparent, transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.card:hover::before {
+  background: linear-gradient(135deg, var(--accent), var(--info));
+  opacity: 1;
+}
+
+/* ─── PANEL ENHANCEMENTS ─── */
+.panel {
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.panel:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .panel:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ─── STATUS DOT ANIMATION ─── */
+.status-dot.live {
+  animation: pulse-dot 2s infinite, glow 2s infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 6px var(--success);
+  }
+  50% {
+    box-shadow: 0 0 12px var(--success), 0 0 20px var(--success);
+  }
+}

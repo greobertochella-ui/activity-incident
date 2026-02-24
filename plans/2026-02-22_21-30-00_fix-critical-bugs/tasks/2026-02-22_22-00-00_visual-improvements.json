@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "content": "Agregar skeleton loading states con shimmer animation",
+    "status": "completed"
+  },
+  {
+    "id": "2",
+    "content": "Implementar micro-animaciones (botones, cards, hover)",
+    "status": "completed"
+  },
+  {
+    "id": "3",
+    "content": "Crear empty states ilustrados con iconos",
+    "status": "completed"
+  },
+  {
+    "id": "4",
+    "content": "Progress bars con gradientes y animación shine",
+    "status": "completed"
+  },
+  {
+    "id": "5",
+    "content": "Iconos animados (rotate, wiggle, draw)",
+    "status": "completed"
+  },
+  {
+    "id": "6",
+    "content": "Modo claro/oscuro con toggle y persistencia",
+    "status": "completed"
+  },
+  {
+    "id": "7",
+    "content": "Glassmorphism en modales y mejorar tooltips",
+    "status": "completed"
+  },
+  {
+    "id": "8",
+    "content": "Toast notifications mejoradas con close button",
+    "status": "completed"
+  }
+]

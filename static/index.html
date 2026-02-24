@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <title>Tracker — Actividades &amp; Incidencias</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css?v={{ css_hash }}">
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">
+        <span class="logo-dot"></span>
+        <span class="logo-dot"></span>
+        <span class="logo-dot"></span>
+      </div>
+      <div class="logo-text">
+        <span class="logo-title">TRACKER</span>
+        <span class="logo-sub">GESTIÓN COMERCIAL</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-view="dashboard">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Dashboard</span>
+      </button>
+      <button class="nav-item" data-view="incidencias">
+        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Incidencias</span>
+        <span class="nav-badge" id="badge-incidencias">0</span>
+      </button>
+      <button class="nav-item" data-view="actividades">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>Actividades</span>
+        <span class="nav-badge" id="badge-actividades">0</span>
+      </button>
+      <button class="nav-item" data-view="negocios">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Negocios</span>
+      </button>
+      <button class="nav-item" data-view="comerciales">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <span>Comerciales</span>
+      </button>
+      <button class="nav-item" data-view="calendario">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>Calendario</span>
+      </button>
+      <button class="nav-item" data-view="reportes">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span>Reportes</span>
+      </button>
+      <button class="nav-item" data-view="administracion" id="nav-admin" style="display:none;">
+        <svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        <span>Administración</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="handleLogout()" style="display:none;" id="btn-logout">
+        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4m7 14l5-5-5-5m5 5H9"/></svg>
+        Cerrar Sesión
+      </button>
+      <div class="sys-status">
+        <span class="status-dot live"></span>
+        <span>Sistema activo</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main" id="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="btn-icon" id="sidebar-toggle">
+          <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <h1 class="page-title" id="page-title">Dashboard</h1>
+      </div>
+      <div class="topbar-right">
+        <div class="search-global">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Buscar en todo..." id="global-search" autocomplete="off">
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Cambiar tema">
+          <div class="theme-toggle-slider">
+            <svg class="theme-icon-dark" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="theme-icon-light" viewBox="0 0 24 24" style="display:none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </div>
+        </button>
+        <button class="btn-primary" id="btn-nuevo">
+          <svg viewBox="0 0 24 24" class="icon-plus"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Nuevo
+        </button>
+      </div>
+    </header>
+
+    <!-- VIEWS -->
+    <div class="content" id="content">
+
+      <!-- LOGIN VIEW -->
+      <section class="view active" id="view-login">
+        <div class="login-container">
+          <div class="login-card">
+            <div class="login-header">
+              <div class="logo-mark">
+                <span class="logo-dot"></span>
+                <span class="logo-dot"></span>
+                <span class="logo-dot"></span>
+              </div>
+              <h1>TRACKER</h1>
+              <p>Gestión Comercial</p>
+            </div>
+
+
+
+            <div class="login-tab-content active" id="tab-login">
+              <form id="form-login" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                  <label>Usuario</label>
+                  <input type="text" name="username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                  <label>Contraseña</label>
+                  <input type="password" name="password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn-primary btn-block">Entrar</button>
+                <div style="text-align: center; margin-top: 12px;">
+                  <a href="#" onclick="showForgotPassword(); return false;" style="color: var(--accent); font-size: 13px; text-decoration: none;">¿Olvidaste tu contraseña?</a>
+                </div>
+              </form>
+            </div>
+
+            <div class="login-tab-content" id="tab-register">
+              <form id="form-register" onsubmit="handleRegister(event)">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Apellido</label>
+                    <input type="text" name="apellido" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                  <label>Teléfono</label>
+                  <input type="tel" name="telefono">
+                </div>
+                <div class="form-group">
+                  <label>Usuario</label>
+                  <input type="text" name="username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                  <label>Contraseña</label>
+                  <input type="password" name="password" required minlength="8" autocomplete="new-password">
+                  <small>Mínimo 8 caracteres</small>
+                </div>
+                <button type="submit" class="btn-primary btn-block">Crear Cuenta</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DASHBOARD -->
+      <section class="view active" id="view-dashboard">
+        <div class="kpi-grid">
+          <div class="kpi-card kpi-warn">
+            <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <div class="kpi-data">
+              <span class="kpi-num" id="kpi-inc-abiertas">—</span>
+              <span class="kpi-label">Incidencias abiertas</span>
+            </div>
+            <div class="kpi-trend" id="kpi-inc-critica"></div>
+          </div>
+          <div class="kpi-card kpi-blue">
+            <div class="kpi-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div class="kpi-data">
+              <span class="kpi-num" id="kpi-act-pendientes">—</span>
+              <span class="kpi-label">Actividades pendientes</span>
+            </div>
+          </div>
+          <div class="kpi-card kpi-neutral">
+            <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
+            <div class="kpi-data">
+              <span class="kpi-num" id="kpi-negocios">—</span>
+              <span class="kpi-label">Negocios registrados</span>
+            </div>
+          </div>
+          <div class="kpi-card kpi-green">
+            <div class="kpi-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+            <div class="kpi-data">
+              <span class="kpi-num" id="kpi-comerciales">—</span>
+              <span class="kpi-label">Comerciales activos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-panels">
+          <div class="panel">
+            <div class="panel-head">
+              <span class="panel-title">Incidencias recientes</span>
+              <button class="btn-link" data-view="incidencias">Ver todas →</button>
+            </div>
+            <div class="panel-body" id="dash-incidencias-list">
+              <div class="loading-pulse"></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head">
+              <span class="panel-title">Actividades recientes</span>
+              <button class="btn-link" data-view="actividades">Ver todas →</button>
+            </div>
+            <div class="panel-body" id="dash-actividades-list">
+              <div class="loading-pulse"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-prioridades">
+          <div class="panel full-width">
+            <div class="panel-head"><span class="panel-title">Incidencias por prioridad (activas)</span></div>
+            <div class="panel-body">
+              <div class="prioridad-bars" id="prioridad-bars"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHARTS ROW -->
+        <div class="charts-row">
+          <div class="panel">
+            <div class="panel-head"><span class="panel-title">Incidencias por estado</span></div>
+            <div class="panel-body chart-body">
+              <canvas id="chart-estados"></canvas>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><span class="panel-title">Actividades por comercial</span></div>
+            <div class="panel-body chart-body">
+              <canvas id="chart-comerciales"></canvas>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><span class="panel-title">Tendencia mensual</span></div>
+            <div class="panel-body chart-body">
+              <canvas id="chart-mensual"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INCIDENCIAS -->
+      <section class="view" id="view-incidencias">
+        <div class="toolbar">
+          <div class="filters">
+            <select class="filter-select" id="filter-inc-estado">
+              <option value="">Todos los estados</option>
+              <option value="abierta">Abierta</option>
+              <option value="en_progreso">En progreso</option>
+              <option value="resuelta">Resuelta</option>
+              <option value="cerrada">Cerrada</option>
+            </select>
+            <select class="filter-select" id="filter-inc-prioridad">
+              <option value="">Todas las prioridades</option>
+              <option value="critica">Crítica</option>
+              <option value="alta">Alta</option>
+              <option value="media">Media</option>
+              <option value="baja">Baja</option>
+            </select>
+            <select class="filter-select" id="filter-inc-negocio">
+              <option value="">Todos los negocios</option>
+            </select>
+          </div>
+          <div class="view-toggle">
+            <button class="view-toggle-btn active" id="inc-view-tabla" onclick="setIncView('tabla')">
+              <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:middle"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Tabla
+            </button>
+            <button class="view-toggle-btn" id="inc-view-kanban" onclick="setIncView('kanban')">
+              <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:middle"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="10" y="3" width="5" height="12" rx="1"/><rect x="17" y="3" width="5" height="15" rx="1"/></svg>
+              Kanban
+            </button>
+          </div>
+        </div>
+        <div id="inc-content-area">
+          <div class="table-wrap" id="table-incidencias">
+            <div class="loading-pulse"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ACTIVIDADES -->
+      <section class="view" id="view-actividades">
+        <div class="toolbar">
+          <div class="filters">
+            <select class="filter-select" id="filter-act-estado">
+              <option value="">Todos los estados</option>
+              <option value="pendiente">Pendiente</option>
+              <option value="completada">Completada</option>
+              <option value="cancelada">Cancelada</option>
+            </select>
+            <select class="filter-select" id="filter-act-tipo">
+              <option value="">Todos los tipos</option>
+              <option value="visita">Visita</option>
+              <option value="llamada">Llamada</option>
+              <option value="email">Email</option>
+              <option value="reunion">Reunión</option>
+              <option value="demo">Demo</option>
+              <option value="propuesta">Propuesta</option>
+              <option value="cierre">Cierre</option>
+              <option value="otro">Otro</option>
+            </select>
+            <select class="filter-select" id="filter-act-comercial">
+              <option value="">Todos los comerciales</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap" id="table-actividades">
+          <div class="loading-pulse"></div>
+        </div>
+      </section>
+
+      <!-- NEGOCIOS -->
+      <section class="view" id="view-negocios">
+        <div class="toolbar">
+          <div class="filters">
+          </div>
+        </div>
+        <div class="cards-grid" id="grid-negocios">
+          <div class="loading-pulse"></div>
+        </div>
+      </section>
+
+      <!-- COMERCIALES -->
+      <section class="view" id="view-comerciales">
+        <div class="toolbar">
+          <div class="filters">
+          </div>
+        </div>
+        <div class="cards-grid" id="grid-comerciales">
+          <div class="loading-pulse"></div>
+        </div>
+      </section>
+
+      <!-- CALENDARIO -->
+      <section class="view" id="view-calendario">
+        <div class="panel" style="min-height:600px">
+          <div class="panel-head">
+            <span class="panel-title">Calendario de actividades e incidencias</span>
+            <div style="display:flex;gap:8px;align-items:center">
+              <span class="cal-legend"><span class="cal-dot" style="background:#ef4444"></span>Crítica</span>
+              <span class="cal-legend"><span class="cal-dot" style="background:#f59e0b"></span>Alta</span>
+              <span class="cal-legend"><span class="cal-dot" style="background:#22c55e"></span>Actividad</span>
+            </div>
+          </div>
+          <div class="panel-body" style="padding:16px">
+            <div id="fullcalendar"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REPORTES -->
+      <section class="view" id="view-reportes">
+        <div class="toolbar">
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <button class="btn-ghost" onclick="exportCSV('incidencias')">
+              <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;vertical-align:middle;margin-right:4px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Exportar incidencias CSV
+            </button>
+            <button class="btn-ghost" onclick="exportCSV('actividades')">
+              <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;vertical-align:middle;margin-right:4px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Exportar actividades CSV
+            </button>
+          </div>
+        </div>
+        <div class="kpi-grid" id="rep-kpis" style="margin-bottom:20px"></div>
+        <div class="charts-row" style="margin-bottom:16px">
+          <div class="panel">
+            <div class="panel-head"><span class="panel-title">Incidencias por estado</span></div>
+            <div class="panel-body chart-body"><canvas id="rep-chart-estados"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><span class="panel-title">Incidencias por prioridad</span></div>
+            <div class="panel-body chart-body"><canvas id="rep-chart-prioridad"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><span class="panel-title">Actividades por tipo</span></div>
+            <div class="panel-body chart-body"><canvas id="rep-chart-tipos"></canvas></div>
+          </div>
+        </div>
+        <div class="dashboard-panels">
+          <div class="panel">
+            <div class="panel-head"><span class="panel-title">Actividades por comercial</span></div>
+            <div class="panel-body chart-body" style="height:220px"><canvas id="rep-chart-comerciales"></canvas></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><span class="panel-title">Tendencia mensual (incidencias)</span></div>
+            <div class="panel-body chart-body" style="height:220px"><canvas id="rep-chart-mensual"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADMINISTRACIÓN -->
+      <section class="view" id="view-administracion">
+        <div class="toolbar">
+          <h2 style="font-family: var(--cond); font-size: 18px; font-weight: 600; color: var(--text);">Gestión de Usuarios</h2>
+          <button class="btn-primary" onclick="openUsuarioForm(null)">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nuevo Usuario
+          </button>
+        </div>
+        
+        <div class="table-wrap">
+          <table id="tabla-usuarios">
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Nombre Completo</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Subgrupo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-usuarios">
+              <tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text3)">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div><!-- /content -->
+  </main>
+
+  <!-- ═══════════ MODAL ═══════════ -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-title">—</h2>
+        <button class="btn-icon modal-close" id="modal-close">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer" id="modal-footer"></div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+  <script src="/static/app.js?v={{ js_hash }}"></script>
+</body>
+</html>

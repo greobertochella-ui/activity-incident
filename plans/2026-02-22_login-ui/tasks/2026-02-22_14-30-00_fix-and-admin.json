@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "content": "Aumentar altura de inputs de usuario y contraseña en login",
+    "status": "completed"
+  },
+  {
+    "id": "2",
+    "content": "Revisar y arreglar formulario de registro (event handlers)",
+    "status": "completed"
+  },
+  {
+    "id": "3",
+    "content": "Agregar vista 'Administración' en sidebar (solo visible para admin)",
+    "status": "completed"
+  },
+  {
+    "id": "4",
+    "content": "Crear HTML de página de administración con tabla de usuarios",
+    "status": "completed"
+  },
+  {
+    "id": "5",
+    "content": "Crear JS loadAdministracion() con CRUD de usuarios",
+    "status": "completed"
+  },
+  {
+    "id": "6",
+    "content": "Probar creación, edición y eliminación de usuarios",
+    "status": "completed"
+  }
+]

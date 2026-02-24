@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "content": "[Phase 1] Add login view HTML with tabs (Login | Registro) to index.html",
+    "status": "completed"
+  },
+  {
+    "id": "2",
+    "content": "[Phase 1] Add logout button to sidebar in index.html",
+    "status": "completed"
+  },
+  {
+    "id": "3",
+    "content": "[Phase 2] Add CSS styles for login view, tabs, and logout button to styles.css",
+    "status": "completed"
+  },
+  {
+    "id": "4",
+    "content": "[Phase 3] Add auth state and functions (checkAuth, handleLogin, handleRegister, handleLogout, loadLogin) to app.js",
+    "status": "completed"
+  },
+  {
+    "id": "5",
+    "content": "[Phase 3] Update navigate(), loadView(), and init() functions in app.js",
+    "status": "completed"
+  },
+  {
+    "id": "6",
+    "content": "Test login flow with seed user (admin/Admin2026!)",
+    "status": "completed"
+  }
+]

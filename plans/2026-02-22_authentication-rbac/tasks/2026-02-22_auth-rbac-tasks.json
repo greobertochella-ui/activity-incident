@@ -1,0 +1,77 @@
+[
+  {
+    "id": "1",
+    "content": "[P1] Backup existing database and extend comerciales table with username, password_hash, rol, subgrupo columns",
+    "status": "completed"
+  },
+  {
+    "id": "2",
+    "content": "[P1] Create sesiones table with session_id, comercial_id, created_at, expires_at + index",
+    "status": "completed"
+  },
+  {
+    "id": "3",
+    "content": "[P1] Update seed data with 7 test users (1 admin, 1 jefe, 2 jefes_grupo, 4 comerciales with subgroups)",
+    "status": "completed"
+  },
+  {
+    "id": "4",
+    "content": "[P2] Install passlib[bcrypt] and create auth.py with password hashing + session management functions",
+    "status": "completed"
+  },
+  {
+    "id": "5",
+    "content": "[P2] Add auth endpoints (/api/auth/register, /login, /logout, /me) with session cookie handling",
+    "status": "completed"
+  },
+  {
+    "id": "6",
+    "content": "[P2] Create session middleware get_current_user() and apply to all /api/* routes except auth",
+    "status": "completed"
+  },
+  {
+    "id": "7",
+    "content": "[P3] Create get_visible_comercial_ids() helper and add RBAC filtering to /api/stats, /api/actividades, /api/incidencias",
+    "status": "pending"
+  },
+  {
+    "id": "8",
+    "content": "[P3] Add RBAC filtering to /api/comerciales, /api/negocios, /api/calendario, export endpoints",
+    "status": "pending"
+  },
+  {
+    "id": "9",
+    "content": "[P4] Add checkAuth() to app.js, create login/register views with forms and navigation",
+    "status": "pending"
+  },
+  {
+    "id": "10",
+    "content": "[P4] Add logout button to header and global 401 error handler redirecting to login",
+    "status": "pending"
+  },
+  {
+    "id": "11",
+    "content": "[P5] Add /api/usuarios CRUD endpoints (list, create, update, delete) admin-only",
+    "status": "pending"
+  },
+  {
+    "id": "12",
+    "content": "[P5] Create Administración view in app.js with user table and create/edit/delete modals",
+    "status": "pending"
+  },
+  {
+    "id": "13",
+    "content": "[P6] Add session expiry check and periodic cleanup task in lifespan",
+    "status": "pending"
+  },
+  {
+    "id": "14",
+    "content": "[P7] Add validation, role badges CSS, edge case handling (self-deletion, last admin, etc.)",
+    "status": "pending"
+  },
+  {
+    "id": "15",
+    "content": "[P7] Test all roles with verification script and verify RBAC filtering works correctly",
+    "status": "pending"
+  }
+]
